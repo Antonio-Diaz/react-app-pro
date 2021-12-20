@@ -1,12 +1,17 @@
-import { useContext } from "react";
+import { CSSProperties, useContext } from "react";
 import { ProductContext } from "../contexts";
 
-import styles from '../styles/styles.module.css';
+import styles from "../styles/styles.module.css";
 
-export const ProductTitle = ({ title }: { title?: string }) => {
+export interface Props {
+  title?: string;
+  className?: string;
+  style?: CSSProperties;
+}
+
+export const ProductTitle = ({ title, className, style }: Props) => {
   const { product } = useContext(ProductContext);
   let titleToShow: string;
-
   if (title) {
     titleToShow = title;
   } else if (product.title) {
@@ -14,5 +19,9 @@ export const ProductTitle = ({ title }: { title?: string }) => {
   } else {
     titleToShow = "";
   }
-  return <span className={styles.productDescription}>{titleToShow}</span>;
+  return (
+    <span className={`${styles.productDescription} ${className}`} style={style}>
+      {titleToShow}
+    </span>
+  );
 };
